@@ -1,4 +1,10 @@
+services:
+ - name: docker:dind
+   command: ["--tls=false"]
 variables:
+ DOCKER_HOST: "tcp://docker:2375"
+ DOCKER_TLS_CERTDIR: ""
+ DOCKER_DRIVER: overlay2
  MAVEN_OPTS: >-
    -Dhttps.protocols=TLSv1.2
    -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository
@@ -10,9 +16,7 @@ variables:
    --fail-at-end
    --show-version
    --no-transfer-progress
-
 image: maven:3-eclipse-temurin-19
-
 cache:
  paths:
    - .m2/repository
@@ -29,4 +33,4 @@ test:
     when: always
     expire_in: 1 week
     paths:
-      - ./$MODULE/target/karate-reports
+      - ./target/karate-reports
