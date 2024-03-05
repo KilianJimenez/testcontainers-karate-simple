@@ -64,6 +64,6 @@ public class CustomerControllerTest {
     );
     customerRepository.saveAll(customers);
 
-    return Karate.run("classpath:com/example/testcontainerssimple/features/customer.feature");
+    return Karate.run("classpath:features/customer.feature");
   }
 }
